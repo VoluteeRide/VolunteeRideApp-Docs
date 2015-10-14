@@ -5,7 +5,7 @@
 
 1. Retrieve All Centers
   * Description : Retrieves information about all centers.
-  * URL : ** GET http://localhost:8080/volunteeride/centers**
+  * URL : **GET http://localhost:8080/volunteeride/centers**
   * Sample Response : 
   ```
     [
