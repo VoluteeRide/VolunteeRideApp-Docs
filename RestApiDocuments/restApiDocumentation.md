@@ -1,6 +1,14 @@
 
 ## Rest Api Documentation for VolunteeRide App
 
+### Authentication for All apis
+
+1. Kindly add **Basic authentication** header when calling any of the below mentioned apis with the username and password for     the registered user.
+2. Once the user the logged in, server will create a session and respond with session id which will be stored as JSESSIONID 
+   cokkie on your browser.
+3. Basic Authentication header will not be required in susbsequent api calls once the user is logged in as the server will use    this session id to retrieve the logged in user information and roles.
+4. The user can be ended by logging user out using a **POST http://localhost:8080/volunteeride/logout** api.
+
 ### Center Resource Apis:
 
 1. Retrieve All Centers
@@ -101,11 +109,11 @@
   * Content Type Header : application/json
   * Sample Request :
   ```
-  {
+   {
            "volunteerId": null,
            "rideSeekerIds":
            [
-               "560b396d03647d860857cd9f"
+               "5639aef103649dac603407a2"
            ],
            "pickupLoc":
            {
@@ -125,22 +133,23 @@
                "houseNumber": 0,
                "locationName": null
            },
-           "pickupTime": "2015-10-02T02:36:04.000+0000",
+           "pickupTime": "2015-11-09T12:36:04.000+0000",
            "status": null,
            "centerId": "ignoredCenterId",
            "totalNoOfRiders": 0
-  }
+   }
   ```
+  
   * Sample Response :
   ```
     {
-        "id": "56196a620364e69ad3d1d8a0",
-        "createdDatetime": "2015-10-10T19:43:30+0000",
+        "id": "564007f30364a91408c89b45",
+        "createdDatetime": "2015-11-09T02:41:55+0000",
         "version": 0,
         "volunteerId": null,
         "rideSeekerIds":
         [
-            "560b396d03647d860857cd9f"
+            "5639aef103649dac603407a2"
         ],
         "pickupLoc":
         {
@@ -160,25 +169,29 @@
             "houseNumber": 0,
             "locationName": null
         },
-        "pickupTime": "2015-10-11T02:36:04+0000",
+        "pickupTime": "2015-11-09T12:36:04+0000",
         "status": "REQUESTED",
-        "centerId": "560b396d03647d860857cd9e",
-        "totalNoOfRiders": 0
+        "centerId": "5639aef003649dac603407a1",
+        "totalNoOfRiders": 0,
+        "nextRideUserOperations": null
     }
+
+
   ```
 2. Get Ride details api:
-  * Description : Gets Ride details for a specific ride.
+  * Description : Gets Ride details for a specific ride along with next user operations on the ride based on logged in user 
+    role.
   * URL : **GET http://localhost:8080/volunteeride/centers/{center_id}/rides/{ride_id}**
   * Sample Response :
   ```
     {
-        "id": "560de6590364a04f3d689038",
-        "createdDatetime": "2015-10-02T02:05:13+0000",
+        "id": "564007f30364a91408c89b45",
+        "createdDatetime": "2015-11-09T02:41:55+0000",
         "version": 0,
         "volunteerId": null,
         "rideSeekerIds":
         [
-            "560b396d03647d860857cd9f"
+            "5639aef103649dac603407a2"
         ],
         "pickupLoc":
         {
@@ -198,11 +211,15 @@
             "houseNumber": 0,
             "locationName": null
         },
-        "pickupTime": "2015-10-02T02:36:04+0000",
+        "pickupTime": "2015-11-09T12:36:04+0000",
         "status": "REQUESTED",
-        "centerId": "560b396d03647d860857cd9e",
-        "totalNoOfRiders": 0
-    }
+        "centerId": "5639aef003649dac603407a1",
+        "totalNoOfRiders": 0,
+        "nextRideUserOperations":
+        [
+            "CANCEL"
+        ]
+   }
   ```
 3. Search Rides Api Details :
   * Description : Gets Ride details for a specific ride. This api provides paged results.
@@ -293,5 +310,53 @@
         "numberOfElements": 2
     }
   ```
+4. Execute Ride Operation api:
+   * Description : Execute different ride operations based on State Transition Model which can found at  
+     (https://github.com/VoluteeRide/VolunteeRideApp-Docs/blob/master/README.md)
+   * URL : **PUT http://localhost:8080/volunteeride/centers/{center_id}/rides/{ride_id}/operation/{OPERATION_NAME}**
+   * The operations currently supported are as follows:
+     * ACCEPT
+     * CANCEL
+     * ACKNOWLEDGE
+   * Sample Response :
+   ```
+    {
+        "id": "564007f30364a91408c89b45",
+        "createdDatetime": "2015-11-09T02:41:55+0000",
+        "version": 1,
+        "volunteerId": "5639aef103649dac603407a3",
+        "rideSeekerIds":
+        [
+            "5639aef103649dac603407a2"
+        ],
+        "pickupLoc":
+        {
+            "city": "Newyork",
+            "state": "Newyork",
+            "streetAddress": null,
+            "zipcode": null,
+            "houseNumber": 0,
+            "locationName": null
+        },
+        "dropoffLoc":
+        {
+            "city": "Jersey City",
+            "state": "Jersey",
+            "streetAddress": null,
+            "zipcode": null,
+            "houseNumber": 0,
+            "locationName": null
+        },
+        "pickupTime": "2015-11-09T12:36:04+0000",
+        "status": "ACCEPTED",
+        "centerId": "5639aef003649dac603407a1",
+        "totalNoOfRiders": 0,
+        "nextRideUserOperations":
+        [
+            "CANCEL"
+        ]
+   }
+   ```
+ 
 
   
