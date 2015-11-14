@@ -9,6 +9,147 @@
 3. Basic Authentication header will not be required in susbsequent api calls once the user is logged in as the server will use    this session id to retrieve the logged in user information and roles.
 4. The user can be ended by logging user out using a **POST http://localhost:8080/volunteeride/logout** api.
 
+### User Resource Apis:
+
+1. Register VOLUNTEER
+   * Description : Registers volunteer into the system.
+   * URL : **POST http://localhost:8080/volunteeride/users**
+    
+   * Sample Request :
+   ```
+   {
+        "username": "volusr3",
+         "password":"password",
+        "firstName": "volunteer3 First Name",
+        "lastName": "volunteer3 last name",
+        "email": "volusr3@gmail.com",
+        "phone": "123-456-8792",
+        "ownedVehicles":
+        [
+            {
+                "make": "Toyota",
+                "model": "Camry",
+                "totalRiderCapacity": 4,
+                "type": "SEDAN",
+                "color": "Black"
+            }
+        ],
+        "centerId": "564798040364519acbc255b1",
+        "userRoles":
+        [
+            "VOLUNTEER"
+        ]
+    }
+
+   
+   ```
+   * Sample Response :
+   ```
+    {
+        "id": "56479ca903646d1ea2a2edd7",
+        "createdDatetime": "2015-11-14T20:42:17+0000",
+        "version": 0,
+        "username": "volusr3",
+        "firstName": "volunteer3 First Name",
+        "lastName": "volunteer3 last name",
+        "email": "volusr3@gmail.com",
+        "phone": "123-456-8792",
+        "ownedVehicles":
+        [
+            {
+                "make": "Toyota",
+                "model": "Camry",
+                "totalRiderCapacity": 4,
+                "type": "SEDAN",
+                "color": "Black"
+            }
+        ],
+        "centerId": "564798040364519acbc255b1",
+        "userRoles":
+        [
+            "VOLUNTEER"
+        ]
+    }
+
+   
+   
+   ```
+   
+2. Register RIDE_SEEKER
+   * Description : Registers ride seeker into the system.
+   * URL : **POST http://localhost:8080/volunteeride/users**
+    
+   * Sample Request :
+   ```
+   {
+        "username": "rideusr3",
+        "password":"password",
+        "firstName": "rideseeker 3 First Name",
+        "lastName": "rideseeker 3 last name",
+        "email": "rideusr3@gmail.com",
+        "phone": "123-456-8792",
+        "ownedVehicles": null,
+        "centerId": "5647897e03649b1e013c90ed",
+        "userRoles":
+        [
+            "RIDE_SEEKER"
+        ]
+    }
+
+   ```
+   * Sample Response :
+   ```
+      {
+        "id": "56479d6103646d1ea2a2edd8",
+        "createdDatetime": "2015-11-14T20:45:21+0000",
+        "version": 0,
+        "username": "rideusr3",
+        "firstName": "rideseeker 3 First Name",
+        "lastName": "rideseeker 3 last name",
+        "email": "rideusr3@gmail.com",
+        "phone": "123-456-8792",
+        "ownedVehicles": null,
+        "centerId": "5647897e03649b1e013c90ed",
+        "userRoles": [
+          "RIDE_SEEKER"
+        ]
+      }
+
+   ```
+
+3. Retrieve User Details:
+  * Description : Retrieves information about the user.
+  * URL : **GET http://localhost:8080/volunteeride/user/{user_id}**
+  * Sample Response : 
+    ```
+    {
+        "id": "56479ca903646d1ea2a2edd7",
+        "createdDatetime": "2015-11-14T20:42:17+0000",
+        "version": 0,
+        "username": "volusr3",
+        "firstName": "volunteer3 First Name",
+        "lastName": "volunteer3 last name",
+        "email": "volusr3@gmail.com",
+        "phone": "123-456-8792",
+        "ownedVehicles":
+        [
+            {
+                "make": "Toyota",
+                "model": "Camry",
+                "totalRiderCapacity": 4,
+                "type": "SEDAN",
+                "color": "Black"
+            }
+        ],
+        "centerId": "564798040364519acbc255b1",
+        "userRoles":
+        [
+            "VOLUNTEER"
+        ]
+    }
+    
+    ```
+
 ### Center Resource Apis:
 
 1. Retrieve All Centers
