@@ -1,17 +1,45 @@
 
 ## Rest Api Documentation for VolunteeRide App
 
+Note : **Please add content type as "application/json" for all the Post requests**
+
 ### Authentication for All apis
 
 1. Kindly add **Basic authentication** header when calling any of the below mentioned apis with the username and password for     the registered user.
 2. Once the user the logged in, server will create a session and respond with session id which will be stored as JSESSIONID 
    cokkie on your browser.
 3. Basic Authentication header will not be required in susbsequent api calls once the user is logged in as the server will use    this session id to retrieve the logged in user information and roles.
-4. The user can be ended by logging user out using a **POST http://localhost:8080/volunteeride/logout** api.
+4. The user can be ended by logging user out using a **POST http://localhost:8080/volunteeride/users/logout** api.
 
 ### User Resource Apis:
 
-1. Register VOLUNTEER
+1. Login Api
+   * Description : Logs in the user
+   * URL : **POST http://localhost:8080/volunteeride/users/login**
+   * Add Basic Authentication Header.
+   * Sample Response: Logged in user's information.
+   ```
+   {
+        "id": "564798040364519acbc255b2",
+        "createdDatetime": "2015-11-14T20:22:28+0000",
+        "version": 0,
+        "username": "rideusr",
+        "firstName": "rideseeker First Name",
+        "lastName": "rideseeker last name",
+        "email": "rideusr@gmail.com",
+        "phone": "123-456-8792",
+        "ownedVehicles": null,
+        "centerId": "564798040364519acbc255b1",
+        "userRoles":
+        [
+            "RIDE_SEEKER"
+        ]
+    }
+   
+   
+   ```
+  
+2. Register VOLUNTEER
    * Description : Registers volunteer into the system.
    * URL : **POST http://localhost:8080/volunteeride/users**
     
